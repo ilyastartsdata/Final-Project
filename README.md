@@ -2,9 +2,10 @@
 
 This is my final project at Ironhack, which helped me get to the Final Hackshow on the 13th of December at Beta-house.
 
-## Getting Started
+## Final Presentation
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+For the final presentation please check the following Google Slides: 
+https://docs.google.com/presentation/d/113M_4-i2eDk3lb1LXbMqv33i7r_5MPepVMrfasY1NUQ/edit?usp=sharing
 
 ### Prerequisites
 
