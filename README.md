@@ -275,7 +275,7 @@ magnitude = magnitude.reset_index(drop = True)
 was_1['impact'] = magnitude
 ```
 
-Processing with the data for 'Victims'
+### Processing with the data for 'Victims'
 
 ```
 # Importing the file
