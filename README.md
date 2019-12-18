@@ -177,7 +177,7 @@ The Globe visualization consists of two different parts: victims and aggressors
 ### Data Sources:
 
 * [CYBERTHREAT REAL-TIME MAP](https://cybermap.kaspersky.com) - Victims
-* [Kaggle](https://www.kaggle.com/casimian2000/aws-honeypot-attack-data) - AWS Honeypot Attack Data
+* [AWS Honeypot Attack Data](https://www.kaggle.com/casimian2000/aws-honeypot-attack-data) - Aggressors
 
 ## Contributing
 
