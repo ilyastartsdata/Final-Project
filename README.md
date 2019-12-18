@@ -14,7 +14,41 @@ https://docs.google.com/presentation/d/113M_4-i2eDk3lb1LXbMqv33i7r_5MPepVMrfasY1
 What things you need to install the software and how to install them
 
 ```
-Give examples
+# Essensial libraries
+
+import pandas as pd
+import numpy as np
+
+# Plotting libraries
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+from IPython.display import SVG
+
+# Scikit-Learn libraries
+
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+
+# Artificial Neural Networks
+
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.utils.vis_utils import model_to_dot
+
+# Additional
+
+np.random.seed(123)
+%matplotlib inline
 ```
 
 ### Installing
