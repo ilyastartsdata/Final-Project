@@ -3,6 +3,7 @@
 # Cybercrime
 
 This is my final project at Ironhack, which helped me get to the Final Hackshow on the 13th of December.
+It consists of two major parts, which are: Deep Learning Model for Credit Card Fraud Detection and World Globe, which I adjusted the JSON files for.
 
 ## Final Presentation
 
