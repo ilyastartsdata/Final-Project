@@ -9,9 +9,15 @@ This is my final project at Ironhack, which helped me get to the Final Hackshow 
 For the final presentation please check the following Google Slides: 
 https://docs.google.com/presentation/d/113M_4-i2eDk3lb1LXbMqv33i7r_5MPepVMrfasY1NUQ/edit?usp=sharing
 
+## Deep Learning Model
+
+### Data Sources:
+
+* [Kaggle](https://www.kaggle.com/mlg-ulb/creditcardfraud) - Credit Card Fraud
+
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Installation of the necessary libraries
 
 ```
 # Essensial libraries
@@ -51,53 +57,127 @@ np.random.seed(123)
 %matplotlib inline
 ```
 
-### Installing
+### Plotting the correlation of the variables
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+It is a necessary step, which allows us to get some insights in the data
 
 ```
-Give the example
+adjustment = np.zeros_like(correlation, dtype = np.bool)
+adjustment[np.triu_indices_from(adjustment)] = True
+
+fig, ax = plt.subplots(figsize = (18, 15))
+
+cmap = sns.diverging_palette(220, 10, as_cmap = True)
+
+sns.heatmap(correlation, mask = adjustment, cmap = cmap, vmax = 0.3, center = 0,
+            square = True, linewidths = 0.5, cbar_kws={"shrink": 0.5})
 ```
 
-And repeat
+### Scaling the variable Amount
+
+It is necessary to adjust this variable since the values of it are big. As well as dropping the Time column
 
 ```
-until finished
+df['Scaled_Amount'] = StandardScaler().fit_transform(df['Amount'].values.reshape(-1, 1))
+df = df.drop(['Amount'], axis = 1)
+
+# Dropping the Time
+
+df = df.drop(['Time'], axis = 1)
+df.head()
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### Assigning X and y and splitting into train and test sets
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Our target variable is Class, which states if the card was stolen or not
 
 ```
-Give an example
+X = df.iloc[:, df.columns != 'Class']
+y = df.iloc[:, df.columns == 'Class']
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
 ```
-Give an example
+# Train test split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 123)
 ```
 
-## Deployment
+### Training the Deep Learning Model
 
-Add additional notes about how to deploy this on a live system
+Deep Learning, in general, is a subset of Machine Learning, but there are numerous layers containing algorothms, each providing a different interpretation to the data it feeds on.
 
-## Built With
+My decision was to go with Sequential classifier(model), which is simply a linear stack of layers. This means that every layer has one input and output. The output of oen layer is the input of another.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+Initalizer was 'uniform', since I had an equal possibility of outcomes (fraud/not fraud)
+Activation used for input and hidden layers was 'relu', because it performs well and for output it was 'sigmoid' for the sense of binary classification.
+
+Thinking about compiling, I've used 'Adam' as an optimizer since it adjusts the learning rate during training, loss was 'binary crossentropy' since I had 2 target classes and 'accuracy' as metrics.
+
+Batch size and epochs were chosen in order not to spend huge amount of computational resources.
+
+```
+classifier = Sequential()
+
+# Input layer and the first hidden layer
+
+classifier.add(Dense(units = 15, kernel_initializer = 'uniform', activation = 'relu', input_dim = 29))
+
+# Second hidden layer
+
+classifier.add(Dense(units = 15, kernel_initializer = 'uniform', activation = 'relu'))
+
+# Output layer
+
+classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
+
+# Compiling the ANN
+
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+# Fitting the ANN
+
+classifier.fit(X_train, y_train, batch_size = 32, epochs = 15)
+```
+
+### Results
+
+Getting the score
+
+```
+y_pred = classifier.predict(X_test)
+y_pred = (y_pred > 0.5)
+score = classifier.evaluate(X_test, y_test)
+```
+
+Confusion matrix
+
+```
+matrix = confusion_matrix(y_test, y_pred)
+```
+
+Summary
+
+```
+classifier.summary()
+```
+
+Test Data Accuracy
+
+```
+print("Test Data Accuracy: %0.4f" % accuracy_score(y_test, y_pred))
+```
+
+
+## World Globe
+
+Working with this type of Visualization was a bit new for me, that is why I've adjusted only the data source without changing a lot of the source code. The data file was in JSON format, so I've imported it into Jupyter Notebook and have done the adjustments there.
+
+The Globe visualization consists of two different parts: victims and aggressors
+
+### Data Sources:
+
+* [CYBERTHREAT REAL-TIME MAP](https://cybermap.kaspersky.com) - Victims
+* [Kaggle](https://www.kaggle.com/casimian2000/aws-honeypot-attack-data) - AWS Honeypot Attack Data
 
 ## Contributing
 
